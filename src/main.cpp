@@ -40,6 +40,9 @@ int main(){
     cout << "Number of Leafs: ";
     cout << testTree.numLeafs() << endl;
 
+    cout << "Height of Tree: ";
+    cout << testTree.height() << endl;
+
     cout << "Is the tree balanced? ";
     cout << testTree.isBalanced() << endl;
     return 0;

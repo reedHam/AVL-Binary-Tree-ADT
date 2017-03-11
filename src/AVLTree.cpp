@@ -225,7 +225,9 @@ int AVLTree::min(Node* _root){
 }
 
 
-int AVLTree::height(){};
+int AVLTree::height(){
+    return maxDepth(root);
+};
 
 /**
 *   This method calls countNode
