@@ -1,10 +1,10 @@
-#include "BTree.h"
+#include "AVLTree.h"
 #include <iostream>
 
 using namespace std;
 
 int main(){
-    BTree testTree;
+    AVLTree testTree;
     testTree.insert(10);
     testTree.insert(8);
     testTree.insert(9);

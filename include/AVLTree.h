@@ -3,13 +3,14 @@
 
 #include <string>
 
-class BTree{
+class AVLTree{
     public:
-        BTree();
-        ~BTree();
+        AVLTree();
+        ~AVLTree();
 
         void deleteTree();
         void insert(int _value);
+        bool isBalanced();
         void printTreePre();
         void printTreePost();
         void printTreeIn();
@@ -28,14 +29,12 @@ class BTree{
             int value;
             Node* left;
             Node* right;
-            bool visited;
 
             // constructor sets value to 0 if no parameter is given
             Node(int _value) : value(0){
                 value = _value;
                 left = NULL;
                 right = NULL;
-                visited = false;
             }
         };
 
@@ -43,6 +42,10 @@ class BTree{
 
         void deleteTree(Node* _leaf);
         void insert(int _value, Node* _node);
+
+        int minDepth(Node* _root);
+        int maxDepth(Node* _root);
+
         void printTreePre(Node* _root);
         void printTreePost(Node* _root);
         void printTreeIn(Node* _root);
