@@ -7,11 +7,14 @@ int main(){
     AVLTree testTree;
     testTree.insert(10);
     testTree.insert(8);
-    testTree.insert(9);
-    testTree.insert(6);
     testTree.insert(12);
-    testTree.insert(11);
+
+    testTree.insert(6);
+    testTree.insert(9);
     testTree.insert(13);
+    testTree.insert(11);
+    testTree.insert(5);
+
 
     cout << "Pre-order: ";
     testTree.printTreePre();
@@ -37,5 +40,7 @@ int main(){
     cout << "Number of Leafs: ";
     cout << testTree.numLeafs() << endl;
 
+    cout << "Is the tree balanced? ";
+    cout << testTree.isBalanced() << endl;
     return 0;
 }

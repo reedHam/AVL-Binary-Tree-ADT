@@ -73,29 +73,39 @@ void AVLTree::insert(int _value, Node* _node){
 *   @return  True if the tree is balanced or if root is null
 *   @return  False if the tree is not balanced
 */
-bool isBalanced(){
+bool AVLTree::isBalanced(){
     if (root != NULL){
         // if the difference is greater than 1 the tree is unbalanced
-        return (minDepth(root) - maxDepth(root)) <= 1;
+        return (maxDepth(root) - minDepth(root)) < 1;
     }
-    return true;
 }
 
 /**
-*   minDepth is a helper function for recursion used in isBalanced
+*   minDepth is a helper function for recursion, used in isBalanced
 *   minDepth recurses through the tree and adds 1 for each layer of depth it traverses
 *   @param  Root of the tree that you want to find the min depth of
+*   @return The depth of the tree
 */
-int AVLTree::minDepth(_root){
+
+int AVLTree::minDepth(Node* _root){
+    if (_root != NULL){
+       return 1 +  std::min(minDepth(_root->left), minDepth(_root->right));
+    }
+    return 0;
 }
 
-
 /**
-*   maxDepth is a helper function for recursion used in isBalanced
+*   maxDepth is a helper function for recursion, used in isBalanced
 *   maxDepth recurses through the tree and adds 1 for each layer of depth it traverses
 *   @param  Root of the tree that you want to find the max depth of
+*   @return The depth of the tree
 */
-int AVLTree::maxDepth(_root);
+int AVLTree::maxDepth(Node* _root){
+    if (_root != NULL){
+       return 1 + std::max(minDepth(_root->left), minDepth(_root->right));
+    }
+    return 0;
+}
 
 
 

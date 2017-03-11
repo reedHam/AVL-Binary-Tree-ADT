@@ -1,7 +1,7 @@
 #ifndef BTREE_H
 #define BTREE_H
 
-#include <string>
+#include <algorithm>
 
 class AVLTree{
     public:
