@@ -240,6 +240,9 @@ AVLTree::Node* AVLTree::insert(int _value, Node* _node){
     } else { // if the value is a duplicate then return
         return _node;
     }
+
+    // Step 2: Update height
+    _node->height = maxDepth(_node);
 }
 
 /**
@@ -263,7 +266,7 @@ int AVLTree::minDepth(Node* _root){
 */
 int AVLTree::maxDepth(Node* _root){
     if (_root != NULL){
-       return 1 + std::max(minDepth(_root->left), minDepth(_root->right));
+       return 1 + std::max(maxDepth(_root->left), maxDepth(_root->right));
     }
     return 0;
 }
