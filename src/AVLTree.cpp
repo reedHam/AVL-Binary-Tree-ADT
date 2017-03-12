@@ -374,9 +374,7 @@ int AVLTree::balFactor(Node* _root){
 =======
 >>>>>>> parent of c0984c5... Buggy insert
 
-int AVLTree::height(){
-    return maxDepth(root);
-};
+int AVLTree::height(){};
 
 /**
 *   This method calls countNode
