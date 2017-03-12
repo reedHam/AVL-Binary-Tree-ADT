@@ -9,132 +9,6 @@ AVLTree::~AVLTree(){
 }
 
 /**
-*   this method allows the user to delete the entire tree it calls the deleteTree(Node*) method that
-*   will recursively delete all the nodes in the tree
-*/
-void AVLTree::deleteTree(){
-    deleteTree(root);
-}
-
-/**
-*   this method recursively deletes all the nodes in the tree starting with the leaf nodes
-*   @param _leaf the node to delete
-*/
-void AVLTree::deleteTree(Node* _leaf){
-    if (_leaf != NULL){
-        deleteTree(_leaf->left);
-        deleteTree(_leaf->right);
-        delete _leaf;
-    }
-}
-
-/**
-*   This method allows the user to insert a value that will create a new node
-*   The tree is traversed recursively and the new node is inserted in the appropriate place
-*   @param _value int the value that will be inserted into the tree
-*/
-void AVLTree::insert(int _value){
-<<<<<<< HEAD
-<<<<<<< HEAD
-    if (root == NULL){
-       root = new Node(_value);
-    } else {
-        insertNode(_value, root);
-=======
-=======
->>>>>>> parent of 03297f5... Buggy and broken
-    if (root != NULL){
-        insert(_value, root);
-    } else { // if root is null then insert at top of tree
-        root = new Node(_value);
-<<<<<<< HEAD
->>>>>>> parent of c0984c5... Buggy insert
-=======
-        fixHeight(root);
->>>>>>> parent of 03297f5... Buggy and broken
-    }
-}
-
-/**
-*   This method traverses the tree and inserts the value as a new node in the
-*   correct position
-*   will not insert duplicate values
-*   @param _value int the value that will be inserted into the tree
-*   @param _node the node to be checked against _value
-*/
-<<<<<<< HEAD
-<<<<<<< HEAD
-AVLTree::Node* AVLTree::insertNode(int _value, Node* _node){
-=======
-void AVLTree::insert(int _value, Node* _node){
-    std::cout << _value << ": ";
-    std::cout << _node->height << std::endl;
->>>>>>> parent of 03297f5... Buggy and broken
-    // Step 1: If _node is NULL the spot is free and a new node needs to be created
-    if (_node == NULL){
-        _node = new Node(_value);
-        // Step 2: If the value being inserted is smaller than the current nodes
-        //         try and insert to the left
-    } else if (_value < _node->value){
-        insert(_value, _node->left); // Try and insert until the node is NULL
-        // Step 4: if the difference between the trees is 2
-        //         rotation is needed
-        // Note:   when the if below evaluates to True, _node will be the
-        //         grand parent of the node inserted in Step 1
-        if (balFactor(_node) == 2){
-            // Check if the node created in Step 1 was inserted on the left or
-            // right of its parent
-            if (_value < _node->left->value){
-                rotateLeft(_node);
-            } else {
-                dblRotateLeft(_node);
-            }
-        }
-        // Step 3: If the value being inserted is larger than the current nodes
-        //         try and insert to the right
-    } else if (_value > _node->value){
-<<<<<<< HEAD
-        std::cout << "\n";
-        _node->right = insertNode(_value, _node->right); // Try and insert until the node is NULL
-=======
-void AVLTree::insert(int _value, Node* _node){
-    if (_value < _node->value){
-        if (_node->left != NULL){ // if there is a left child recurse
-            insert(_value, _node->left);
-        } else { // if there is no left child insert node here
-            _node->left = new Node(_value);
-        }
-    } else if (_value > _node->value){
-        if (_node->right != NULL){ // if there is a right child recurse
-            insert(_value, _node->right);
-        } else { // if there is no right child insert node here
-            _node->right = new Node(_value);
-        }
-    } else { // if the value is a duplicate then return
-        return;
->>>>>>> parent of c0984c5... Buggy insert
-=======
-        insert(_value, _node->right); // Try and insert until the node is NULL
-        // Step 4: if the difference between the trees is 2
-        //         rotation is needed
-        // Note:   when the if below evaluates to True, _node will be the
-        //         grand parent of the node inserted in Step 1
-        if (balFactor(_node) == 2){
-            // Check if the node created in Step 1 was inserted on the left or
-            // right of its parent
-            if (_value > _node->right->value){
-                rotateRight(_node);
-            } else {
-                dblRotateRight(_node);
-            }
-        }
->>>>>>> parent of 03297f5... Buggy and broken
-    }
-}
-
-
-
-/**
 *   isBalanced Checks if a tree is balanced
 *   @return  True if the tree is balanced or if root is null
 *   @return  False if the tree is not balanced
@@ -145,35 +19,6 @@ bool AVLTree::isBalanced(){
         return (maxDepth(root) - minDepth(root)) < 1;
     }
 }
-
-/**
-*   minDepth is a helper function for recursion, used in isBalanced
-*   minDepth recurses through the tree and adds 1 for each layer of depth it traverses
-*   @param  Root of the tree that you want to find the min depth of
-*   @return The depth of the tree
-*/
-
-int AVLTree::minDepth(Node* _root){
-    if (_root != NULL){
-       return 1 +  std::min(minDepth(_root->left), minDepth(_root->right));
-    }
-    return 0;
-}
-
-/**
-*   maxDepth is a helper function for recursion, used in isBalanced
-*   maxDepth recurses through the tree and adds 1 for each layer of depth it traverses
-*   @param  Root of the tree that you want to find the max depth of
-*   @return The depth of the tree
-*/
-int AVLTree::maxDepth(Node* _root){
-    if (_root != NULL){
-       return 1 + std::max(minDepth(_root->left), minDepth(_root->right));
-    }
-    return 0;
-}
-
-
 
 /**
 *   This method calls a method that traverses the tree in pre-order
@@ -236,60 +81,11 @@ void AVLTree::printTreeIn(Node* _root){
         std::cout << _root->value;
         std::cout << " ";
         printTreeIn(_root->right);
-
     }
 }
 
-/**
-<<<<<<< HEAD
-<<<<<<< HEAD
-*   @return The height of the tree
-=======
-*   rotates a right heavy sub tree once
-*   @param node to rotate on
->>>>>>> parent of 03297f5... Buggy and broken
-*/
-void AVLTree::rotateRight(Node* _node){
-    Node* tempNode = _node->right;
-    _node->left = tempNode->right;
-    tempNode->right = _node;
-    _node = tempNode;
-    delete tempNode;
-}
 
 /**
-*   rotates a right heavy sub tree once
-*   @param node to rotate on
-*/
-void AVLTree::dblRotateRight(Node* _node){
-    rotateLeft(_node->right);
-    rotateRight(_node);
-}
-
-/**
-*   rotates a left heavy sub tree once
-*   @param node to rotate on
-*/
-void AVLTree::rotateLeft(Node* _node){
-    Node* tempNode = _node->left;
-    _node->right = tempNode->left;
-    tempNode->left = _node;
-    _node = tempNode;
-    delete tempNode;
-}
-
-/**
-*   rotates a left heavy sub tree once
-*   @param node to rotate on
-*/
-void AVLTree::dblRotateLeft(Node* _node){
-    rotateRight(_node->left);
-    rotateLeft(_node);
-}
-
-/**
-=======
->>>>>>> parent of c0984c5... Buggy insert
 *   This method traverses the right branch of the tree by calling a recursing max method
 *   @return the maximum value in the tree
 */
@@ -346,35 +142,6 @@ int AVLTree::min(Node* _root){
     }
 }
 
-<<<<<<< HEAD
-/**
-*   checks if the node is NULL
-*   @param node to check the height of
-*   @return height of the node height = 0 if NULL
-*/
-int AVLTree::heightN(Node* _root){
-    if (_root != NULL){
-        return _root->height;
-    } else {
-        return 0;
-    }
-}
-
-
-/**
-*   subtracts the height of the left subtree from the right
-*   @param node to check the balance factor of (only operates with non NULL nodes)
-*   @return balance factor of the node
-*/
-int AVLTree::balFactor(Node* _root){
-    if (_root != NULL){
-        return (heightN(_root->right) - heightN(_root->left));
-    }
-}
-=======
->>>>>>> parent of c0984c5... Buggy insert
-
-int AVLTree::height(){};
 
 /**
 *   This method calls countNode
@@ -422,19 +189,123 @@ int AVLTree::countLeafs(Node* _root){
     }
 };
 
-<<<<<<< HEAD
+
+//-----------------DATA OPERATIONS----------------------
+
 /**
-*   gets the length of the longest subtree and sets the height of the node to it
-*   @param node to fix the height of
+*   this method allows the user to delete the entire tree it calls the deleteTree(Node*) method that
+*   will recursively delete all the nodes in the tree
 */
-void AVLTree::fixHeight(Node* _root){
-    if (_root != NULL){
-       _root->height = maxDepth(_root);
+void AVLTree::deleteTree(){
+    deleteTree(root);
+}
+
+/**
+*   this method recursively deletes all the nodes in the tree starting with the leaf nodes
+*   @param _leaf the node to delete
+*/
+void AVLTree::deleteTree(Node* _leaf){
+    if (_leaf != NULL){
+        deleteTree(_leaf->left);
+        deleteTree(_leaf->right);
+        delete _leaf;
     }
 }
 
+/**
+*   This method allows the user to insert a value that will create a new node
+*   The tree is traversed recursively and the new node is inserted in the appropriate place
+*   @param _value int the value that will be inserted into the tree
+*/
+void AVLTree::insert(int _value){
+    if (root != NULL){
+        insert(_value, root);
+    } else { // create root
+        root = new Node(_value);
+    }
+}
 
-=======
->>>>>>> parent of c0984c5... Buggy insert
+/**
+*   This method traverses the tree and inserts the value as a new node in the
+*   correct position
+*   will not insert duplicate values
+*   @param _value int the value that will be inserted into the tree
+*   @param _node the node to be checked against _value
+*/
+void AVLTree::insert(int _value, Node* _node){
+    if (_value < _node->value){
+        if (_node->left != NULL){ // if there is a left child recurse
+            insert(_value, _node->left);
+        } else { // if there is no left child insert node here
+            _node->left = new Node(_value);
+        }
+    } else if (_value > _node->value){
+        if (_node->right != NULL){ // if there is a right child recurse
+            insert(_value, _node->right);
+        } else { // if there is no right child insert node here
+            _node->right = new Node(_value);
+        }
+    } else { // if the value is a duplicate then return
+        return;
+    }
+}
+
+/**
+*   minDepth is a helper function for recursion, used in isBalanced
+*   minDepth recurses through the tree and adds 1 for each layer of depth it traverses
+*   @param  Root of the tree that you want to find the min depth of
+*   @return The depth of the tree
+*/
+
+int AVLTree::minDepth(Node* _root){
+    if (_root != NULL){
+       return 1 +  std::min(minDepth(_root->left), minDepth(_root->right));
+    }
+    return 0;
+}
+
+/**
+*   maxDepth is a helper function for recursion, used in isBalanced
+*   maxDepth recurses through the tree and adds 1 for each layer of depth it traverses
+*   @param  Root of the tree that you want to find the max depth of
+*   @return The depth of the tree
+*/
+int AVLTree::maxDepth(Node* _root){
+    if (_root != NULL){
+       return 1 + std::max(minDepth(_root->left), minDepth(_root->right));
+    }
+    return 0;
+}
+
+
+/**
+*   rotates a right heavy sub tree once
+*   @param node to rotate on
+*/
+void AVLTree::rotateRight(Node* _node){
+
+}
+
+
+/**
+*   rotates a left heavy sub tree once
+*   @param node to rotate on
+*/
+void AVLTree::rotateLeft(Node* _node){
+
+}
+
+/**
+*   gets the height of a node
+*   @param node to get hight from
+*   @return the hight of the node 0 if node is NULL
+*/
+int AVLTree::getHeight(Node* _node){
+    if (_node != NULL){
+        return _node->height;
+    } else {
+        return 0;
+    }
+}
 
 

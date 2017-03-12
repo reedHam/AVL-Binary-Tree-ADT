@@ -8,18 +8,19 @@ class AVLTree{
         AVLTree();
         ~AVLTree();
 
-        void deleteTree();
-        void insert(int _value);
         bool isBalanced();
         void printTreePre();
         void printTreePost();
         void printTreeIn();
-
         int max();
         int min();
         int height();
         int numNodes();
         int numLeafs();
+
+        void deleteTree();
+        void insert(int _value);
+
 
     private:
         /**
@@ -27,12 +28,14 @@ class AVLTree{
         */
         struct Node {
             int value;
+            int height;
             Node* left;
             Node* right;
 
             // constructor sets value to 0 if no parameter is given
             Node(int _value) : value(0){
                 value = _value;
+                height = 1;
                 left = NULL;
                 right = NULL;
             }
@@ -40,49 +43,27 @@ class AVLTree{
 
         Node* root;
 
-        void deleteTree(Node* _leaf);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        void insert(int _value, Node* _node);
->>>>>>> parent of 03297f5... Buggy and broken
-        void fixHeight(Node* _root);
-=======
-        void insert(int _value, Node* _node);
-
-        int minDepth(Node* _root);
-        int maxDepth(Node* _root);
->>>>>>> parent of c0984c5... Buggy insert
-
         void printTreePre(Node* _root);
         void printTreePost(Node* _root);
         void printTreeIn(Node* _root);
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-        void rotateRight(Node* _node);
-        void dblRotateRight(Node* _node);
-        void rotateLeft(Node* _node);
-        void dblRotateLeft(Node* _node);
->>>>>>> parent of 03297f5... Buggy and broken
-
         int max(Node* _root);
         int min(Node* _root);
+        int countNodes(Node* _root);
+        int countLeafs(Node* _root);
 
-        int heightN(Node* _root);
-        int balFactor(Node* _root);
+
+
+        void deleteTree(Node* _leaf);
+        void insert(int _value, Node* _node);
 
         int minDepth(Node* _root);
         int maxDepth(Node* _root);
 
-=======
-        int max(Node* _root);
-        int min(Node* _root);
->>>>>>> parent of c0984c5... Buggy insert
-        int countNodes(Node* _root);
-        int countLeafs(Node* _root);
+        void rotateRight(Node* _node);
+        void rotateLeft(Node* _node);
+
+        int getHeight(Node* _root);
+
 };
 
 #endif // BTREE_H
