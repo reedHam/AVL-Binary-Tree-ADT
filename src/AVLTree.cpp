@@ -35,16 +35,23 @@ void AVLTree::deleteTree(Node* _leaf){
 */
 void AVLTree::insert(int _value){
 <<<<<<< HEAD
+<<<<<<< HEAD
     if (root == NULL){
        root = new Node(_value);
     } else {
         insertNode(_value, root);
 =======
+=======
+>>>>>>> parent of 03297f5... Buggy and broken
     if (root != NULL){
         insert(_value, root);
     } else { // if root is null then insert at top of tree
         root = new Node(_value);
+<<<<<<< HEAD
 >>>>>>> parent of c0984c5... Buggy insert
+=======
+        fixHeight(root);
+>>>>>>> parent of 03297f5... Buggy and broken
     }
 }
 
@@ -56,18 +63,37 @@ void AVLTree::insert(int _value){
 *   @param _node the node to be checked against _value
 */
 <<<<<<< HEAD
+<<<<<<< HEAD
 AVLTree::Node* AVLTree::insertNode(int _value, Node* _node){
+=======
+void AVLTree::insert(int _value, Node* _node){
+    std::cout << _value << ": ";
+    std::cout << _node->height << std::endl;
+>>>>>>> parent of 03297f5... Buggy and broken
     // Step 1: If _node is NULL the spot is free and a new node needs to be created
     if (_node == NULL){
-        return new Node(_value);
+        _node = new Node(_value);
         // Step 2: If the value being inserted is smaller than the current nodes
         //         try and insert to the left
     } else if (_value < _node->value){
-        std::cout << "\n";
-        _node->left = insertNode(_value, _node->left); // Try and insert until the node is NULL
+        insert(_value, _node->left); // Try and insert until the node is NULL
+        // Step 4: if the difference between the trees is 2
+        //         rotation is needed
+        // Note:   when the if below evaluates to True, _node will be the
+        //         grand parent of the node inserted in Step 1
+        if (balFactor(_node) == 2){
+            // Check if the node created in Step 1 was inserted on the left or
+            // right of its parent
+            if (_value < _node->left->value){
+                rotateLeft(_node);
+            } else {
+                dblRotateLeft(_node);
+            }
+        }
         // Step 3: If the value being inserted is larger than the current nodes
         //         try and insert to the right
     } else if (_value > _node->value){
+<<<<<<< HEAD
         std::cout << "\n";
         _node->right = insertNode(_value, _node->right); // Try and insert until the node is NULL
 =======
@@ -87,8 +113,23 @@ void AVLTree::insert(int _value, Node* _node){
     } else { // if the value is a duplicate then return
         return;
 >>>>>>> parent of c0984c5... Buggy insert
+=======
+        insert(_value, _node->right); // Try and insert until the node is NULL
+        // Step 4: if the difference between the trees is 2
+        //         rotation is needed
+        // Note:   when the if below evaluates to True, _node will be the
+        //         grand parent of the node inserted in Step 1
+        if (balFactor(_node) == 2){
+            // Check if the node created in Step 1 was inserted on the left or
+            // right of its parent
+            if (_value > _node->right->value){
+                rotateRight(_node);
+            } else {
+                dblRotateRight(_node);
+            }
+        }
+>>>>>>> parent of 03297f5... Buggy and broken
     }
-    balance(_node);
 }
 
 
@@ -114,7 +155,7 @@ bool AVLTree::isBalanced(){
 
 int AVLTree::minDepth(Node* _root){
     if (_root != NULL){
-       return 1 + std::min(minDepth(_root->left), minDepth(_root->right));
+       return 1 +  std::min(minDepth(_root->left), minDepth(_root->right));
     }
     return 0;
 }
@@ -127,11 +168,9 @@ int AVLTree::minDepth(Node* _root){
 */
 int AVLTree::maxDepth(Node* _root){
     if (_root != NULL){
-        std::cout << "Root: " << &_root->value << std::endl;
-        return 1 + std::max(maxDepth(_root->left), maxDepth(_root->right));
-    } else {
-        return 0;
+       return 1 + std::max(minDepth(_root->left), minDepth(_root->right));
     }
+    return 0;
 }
 
 
@@ -182,6 +221,13 @@ void AVLTree::printTreeIn(){
 }
 
 /**
+*   @return The height of the tree
+*/
+int AVLTree::height(){
+    return maxDepth(root);
+};
+
+/**
 *   This method traverses the tree in in-order and prints the value
 */
 void AVLTree::printTreeIn(Node* _root){
@@ -190,64 +236,55 @@ void AVLTree::printTreeIn(Node* _root){
         std::cout << _root->value;
         std::cout << " ";
         printTreeIn(_root->right);
+
     }
 }
 
 /**
 <<<<<<< HEAD
+<<<<<<< HEAD
 *   @return The height of the tree
+=======
+*   rotates a right heavy sub tree once
+*   @param node to rotate on
+>>>>>>> parent of 03297f5... Buggy and broken
 */
-int AVLTree::height(){
-    return maxDepth(root);
-};
+void AVLTree::rotateRight(Node* _node){
+    Node* tempNode = _node->right;
+    _node->left = tempNode->right;
+    tempNode->right = _node;
+    _node = tempNode;
+    delete tempNode;
+}
 
 /**
 *   rotates a right heavy sub tree once
 *   @param node to rotate on
 */
-AVLTree::Node* AVLTree::rotateRight(Node* _node){
-    Node* tempNode = _node->left;
-    _node->left = tempNode->right;
-    tempNode->right = _node;
-    fixHeight(_node);
-    fixHeight(tempNode);
-    std::cout << "sub Root: " << tempNode->value << std::endl;
-    std::cout << "left: " << tempNode->left->value << std::endl;
-    std::cout << "right: " << tempNode->right->value << std::endl;
-    std::cout << "Root: " << root->value << std::endl;
-    return tempNode;
+void AVLTree::dblRotateRight(Node* _node){
+    rotateLeft(_node->right);
+    rotateRight(_node);
 }
 
 /**
 *   rotates a left heavy sub tree once
 *   @param node to rotate on
 */
-AVLTree::Node* AVLTree::rotateLeft(Node* _node){
-    Node* tempNode = _node->right;
+void AVLTree::rotateLeft(Node* _node){
+    Node* tempNode = _node->left;
     _node->right = tempNode->left;
     tempNode->left = _node;
-    fixHeight(_node);
-    fixHeight(tempNode);
-    return tempNode;
+    _node = tempNode;
+    delete tempNode;
 }
 
-AVLTree::Node* AVLTree::balance(Node* _root){
-    fixHeight(_root);
-
-    if (balFactor(_root) == 2){
-         if (balFactor(_root->right) < 0){
-            _root->right = rotateRight(_root->right);
-        }
-        return rotateLeft(_root);
-    }
-
-    if (balFactor(_root) == -2){
-         if (balFactor(_root->left) > 0){
-            _root->left = rotateLeft(_root->left);
-        }
-        return rotateRight(_root);
-    }
-    return _root;
+/**
+*   rotates a left heavy sub tree once
+*   @param node to rotate on
+*/
+void AVLTree::dblRotateLeft(Node* _node){
+    rotateRight(_node->left);
+    rotateLeft(_node);
 }
 
 /**
@@ -323,6 +360,7 @@ int AVLTree::heightN(Node* _root){
     }
 }
 
+
 /**
 *   subtracts the height of the left subtree from the right
 *   @param node to check the balance factor of (only operates with non NULL nodes)
@@ -394,8 +432,6 @@ int AVLTree::countLeafs(Node* _root){
 void AVLTree::fixHeight(Node* _root){
     if (_root != NULL){
        _root->height = maxDepth(_root);
-        std::cout << _root->value << ": ";
-        std::cout << _root->height << "\n";
     }
 }
 

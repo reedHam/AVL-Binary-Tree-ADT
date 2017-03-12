@@ -5,6 +5,7 @@ using namespace std;
 
 int main(){
     AVLTree testTree;
+<<<<<<< HEAD
     testTree.insert(10);
 <<<<<<< HEAD
     testTree.insert(9);
@@ -23,6 +24,12 @@ int main(){
     testTree.insert(5);
 
 >>>>>>> parent of c0984c5... Buggy insert
+=======
+    for (int i = 1; i <= 10; i++){
+        testTree.insert(i * 10);
+    }
+
+>>>>>>> parent of 03297f5... Buggy and broken
 
     cout << "Pre-order: ";
     testTree.printTreePre();

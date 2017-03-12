@@ -39,13 +39,13 @@ class AVLTree{
         };
 
         Node* root;
-        Node* insertNode(int _value, Node* _node);
-        Node* balance(Node* _root);
-        Node* rotateRight(Node* _node);
-        Node* rotateLeft(Node* _node);
 
         void deleteTree(Node* _leaf);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        void insert(int _value, Node* _node);
+>>>>>>> parent of 03297f5... Buggy and broken
         void fixHeight(Node* _root);
 =======
         void insert(int _value, Node* _node);
@@ -59,7 +59,14 @@ class AVLTree{
         void printTreeIn(Node* _root);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+        void rotateRight(Node* _node);
+        void dblRotateRight(Node* _node);
+        void rotateLeft(Node* _node);
+        void dblRotateLeft(Node* _node);
+>>>>>>> parent of 03297f5... Buggy and broken
 
         int max(Node* _root);
         int min(Node* _root);
@@ -67,7 +74,6 @@ class AVLTree{
         int heightN(Node* _root);
         int balFactor(Node* _root);
 
-        int maxHeight(Node* _root);
         int minDepth(Node* _root);
         int maxDepth(Node* _root);
 
