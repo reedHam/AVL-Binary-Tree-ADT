@@ -56,13 +56,17 @@ class AVLTree{
         void deleteTree(Node* _leaf);
         Node* insert(int _value, Node* _node);
 
+        Node* rotateRight(Node* _node);
+        Node* rotateLeft(Node* _node);
+
         int minDepth(Node* _root);
         int maxDepth(Node* _root);
 
-        void rotateRight(Node* _node);
-        void rotateLeft(Node* _node);
+
 
         int getHeight(Node* _root);
+
+        int getBalance(Node* _root);
 
 };
 

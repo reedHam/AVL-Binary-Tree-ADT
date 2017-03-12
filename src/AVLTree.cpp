@@ -16,7 +16,7 @@ AVLTree::~AVLTree(){
 bool AVLTree::isBalanced(){
     if (root != NULL){
         // if the difference is greater than 1 the tree is unbalanced
-        return (maxDepth(root) - minDepth(root)) < 1;
+        return (maxDepth(root) - minDepth(root)) <= 1;
     }
 }
 
@@ -243,6 +243,69 @@ AVLTree::Node* AVLTree::insert(int _value, Node* _node){
 
     // Step 2: Update height
     _node->height = maxDepth(_node);
+
+    // step 3: Get the balance of each node
+    int balance = getBalance(_node);
+
+    // Tree became unbalanced
+
+    if (balance > 1){
+        //Left Right
+        if (_value > _node->left->value){
+            _node->left = rotateLeft(_node->left);
+        }
+        //Left Left
+        return rotateRight(_node);
+    }
+
+    if (balance < -1){
+        //Right Left
+        if (_value < _node->right->value){
+            _node->right = rotateRight(_node->right);
+        }
+        //Right Right
+        return rotateLeft(_node);
+    }
+
+    return _node;
+}
+
+/**
+*   rotates a right heavy sub tree once
+*   @param node to rotate on
+*   @return Rotated sub tree
+*/
+AVLTree::Node* AVLTree::rotateRight(Node* _node){
+    Node *piviot = _node->left;
+    Node *leaf = piviot->right;
+
+    // Perform rotation
+    piviot->right = _node;
+    _node->left = leaf;
+
+    piviot->height = maxDepth(piviot);
+    _node->height = maxDepth(_node);
+
+    return piviot;
+}
+
+/**
+*   rotates a left heavy sub tree once
+*   @param node to rotate on
+*   @return Rotated sub tree
+*/
+AVLTree::Node* AVLTree::rotateLeft(Node* _node){
+    Node *piviot = _node->right;
+    Node *leaf = piviot->left;
+
+    // Perform rotation
+    piviot->left = _node;
+    _node->right = leaf;
+
+    piviot->height = maxDepth(piviot);
+    _node->height = maxDepth(_node);
+
+    return _node;
 }
 
 /**
@@ -272,22 +335,6 @@ int AVLTree::maxDepth(Node* _root){
 }
 
 /**
-*   rotates a right heavy sub tree once
-*   @param node to rotate on
-*/
-void AVLTree::rotateRight(Node* _node){
-
-}
-
-/**
-*   rotates a left heavy sub tree once
-*   @param node to rotate on
-*/
-void AVLTree::rotateLeft(Node* _node){
-
-}
-
-/**
 *   gets the height of a node
 *   @param node to get hight from
 *   @return the hight of the node 0 if node is NULL
@@ -300,4 +347,9 @@ int AVLTree::getHeight(Node* _node){
     }
 }
 
-
+int AVLTree::getBalance(Node* _root){
+    if (_root != NULL){
+        return (getHeight(_root->left) - getHeight(_root->right));
+    }
+    return 0;
+}
