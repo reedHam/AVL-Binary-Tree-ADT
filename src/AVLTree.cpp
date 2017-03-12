@@ -34,10 +34,17 @@ void AVLTree::deleteTree(Node* _leaf){
 *   @param _value int the value that will be inserted into the tree
 */
 void AVLTree::insert(int _value){
+<<<<<<< HEAD
     if (root == NULL){
        root = new Node(_value);
     } else {
         insertNode(_value, root);
+=======
+    if (root != NULL){
+        insert(_value, root);
+    } else { // if root is null then insert at top of tree
+        root = new Node(_value);
+>>>>>>> parent of c0984c5... Buggy insert
     }
 }
 
@@ -48,6 +55,7 @@ void AVLTree::insert(int _value){
 *   @param _value int the value that will be inserted into the tree
 *   @param _node the node to be checked against _value
 */
+<<<<<<< HEAD
 AVLTree::Node* AVLTree::insertNode(int _value, Node* _node){
     // Step 1: If _node is NULL the spot is free and a new node needs to be created
     if (_node == NULL){
@@ -62,6 +70,23 @@ AVLTree::Node* AVLTree::insertNode(int _value, Node* _node){
     } else if (_value > _node->value){
         std::cout << "\n";
         _node->right = insertNode(_value, _node->right); // Try and insert until the node is NULL
+=======
+void AVLTree::insert(int _value, Node* _node){
+    if (_value < _node->value){
+        if (_node->left != NULL){ // if there is a left child recurse
+            insert(_value, _node->left);
+        } else { // if there is no left child insert node here
+            _node->left = new Node(_value);
+        }
+    } else if (_value > _node->value){
+        if (_node->right != NULL){ // if there is a right child recurse
+            insert(_value, _node->right);
+        } else { // if there is no right child insert node here
+            _node->right = new Node(_value);
+        }
+    } else { // if the value is a duplicate then return
+        return;
+>>>>>>> parent of c0984c5... Buggy insert
     }
     balance(_node);
 }
@@ -76,9 +101,8 @@ AVLTree::Node* AVLTree::insertNode(int _value, Node* _node){
 bool AVLTree::isBalanced(){
     if (root != NULL){
         // if the difference is greater than 1 the tree is unbalanced
-        return (maxDepth(root) - minDepth(root)) <= 1;
+        return (maxDepth(root) - minDepth(root)) < 1;
     }
-
 }
 
 /**
@@ -170,6 +194,7 @@ void AVLTree::printTreeIn(Node* _root){
 }
 
 /**
+<<<<<<< HEAD
 *   @return The height of the tree
 */
 int AVLTree::height(){
@@ -226,6 +251,8 @@ AVLTree::Node* AVLTree::balance(Node* _root){
 }
 
 /**
+=======
+>>>>>>> parent of c0984c5... Buggy insert
 *   This method traverses the right branch of the tree by calling a recursing max method
 *   @return the maximum value in the tree
 */
@@ -282,6 +309,7 @@ int AVLTree::min(Node* _root){
     }
 }
 
+<<<<<<< HEAD
 /**
 *   checks if the node is NULL
 *   @param node to check the height of
@@ -305,7 +333,12 @@ int AVLTree::balFactor(Node* _root){
         return (heightN(_root->right) - heightN(_root->left));
     }
 }
+=======
+>>>>>>> parent of c0984c5... Buggy insert
 
+int AVLTree::height(){
+    return maxDepth(root);
+};
 
 /**
 *   This method calls countNode
@@ -353,6 +386,7 @@ int AVLTree::countLeafs(Node* _root){
     }
 };
 
+<<<<<<< HEAD
 /**
 *   gets the length of the longest subtree and sets the height of the node to it
 *   @param node to fix the height of
@@ -366,5 +400,7 @@ void AVLTree::fixHeight(Node* _root){
 }
 
 
+=======
+>>>>>>> parent of c0984c5... Buggy insert
 
 

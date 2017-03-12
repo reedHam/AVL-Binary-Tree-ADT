@@ -11,7 +11,6 @@ class AVLTree{
         void deleteTree();
         void insert(int _value);
         bool isBalanced();
-
         void printTreePre();
         void printTreePost();
         void printTreeIn();
@@ -28,14 +27,12 @@ class AVLTree{
         */
         struct Node {
             int value;
-            int height; //Height of NULL nodes is 0
             Node* left;
             Node* right;
 
             // constructor sets value to 0 if no parameter is given
             Node(int _value) : value(0){
                 value = _value;
-                height = 1;
                 left = NULL;
                 right = NULL;
             }
@@ -48,12 +45,20 @@ class AVLTree{
         Node* rotateLeft(Node* _node);
 
         void deleteTree(Node* _leaf);
+<<<<<<< HEAD
         void fixHeight(Node* _root);
+=======
+        void insert(int _value, Node* _node);
+
+        int minDepth(Node* _root);
+        int maxDepth(Node* _root);
+>>>>>>> parent of c0984c5... Buggy insert
 
         void printTreePre(Node* _root);
         void printTreePost(Node* _root);
         void printTreeIn(Node* _root);
 
+<<<<<<< HEAD
 
 
         int max(Node* _root);
@@ -66,6 +71,10 @@ class AVLTree{
         int minDepth(Node* _root);
         int maxDepth(Node* _root);
 
+=======
+        int max(Node* _root);
+        int min(Node* _root);
+>>>>>>> parent of c0984c5... Buggy insert
         int countNodes(Node* _root);
         int countLeafs(Node* _root);
 };
