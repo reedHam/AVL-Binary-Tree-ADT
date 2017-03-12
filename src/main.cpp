@@ -5,15 +5,9 @@ using namespace std;
 
 int main(){
     AVLTree testTree;
-    testTree.insert(10);
-    testTree.insert(8);
-    testTree.insert(12);
-
-    testTree.insert(6);
-    testTree.insert(9);
-    testTree.insert(13);
-    testTree.insert(11);
-    testTree.insert(5);
+    for (int i = 1; i <= 10; i++){
+        testTree.insert(i * 10);
+    }
 
 
     cout << "Pre-order: ";
