@@ -54,7 +54,7 @@ class AVLTree{
 
 
         void deleteTree(Node* _leaf);
-        void insert(int _value, Node* _node);
+        Node* insert(int _value, Node* _node);
 
         int minDepth(Node* _root);
         int maxDepth(Node* _root);

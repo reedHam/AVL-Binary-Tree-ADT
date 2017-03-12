@@ -218,11 +218,7 @@ void AVLTree::deleteTree(Node* _leaf){
 *   @param _value int the value that will be inserted into the tree
 */
 void AVLTree::insert(int _value){
-    if (root != NULL){
-        insert(_value, root);
-    } else { // create root
-        root = new Node(_value);
-    }
+    root = insert(_value, root);
 }
 
 /**
@@ -231,22 +227,18 @@ void AVLTree::insert(int _value){
 *   will not insert duplicate values
 *   @param _value int the value that will be inserted into the tree
 *   @param _node the node to be checked against _value
+*   @return root to changed tree
 */
-void AVLTree::insert(int _value, Node* _node){
-    if (_value < _node->value){
-        if (_node->left != NULL){ // if there is a left child recurse
-            insert(_value, _node->left);
-        } else { // if there is no left child insert node here
-            _node->left = new Node(_value);
-        }
+AVLTree::Node* AVLTree::insert(int _value, Node* _node){
+    // Step 1: Insert node into tree
+    if (_node == NULL){
+        return new Node(_value);// if node is NULL create it
+    } else if (_value < _node->value){
+        _node->left = insert(_value, _node->left);
     } else if (_value > _node->value){
-        if (_node->right != NULL){ // if there is a right child recurse
-            insert(_value, _node->right);
-        } else { // if there is no right child insert node here
-            _node->right = new Node(_value);
-        }
+        _node->right = insert(_value, _node->right);
     } else { // if the value is a duplicate then return
-        return;
+        return _node;
     }
 }
 
@@ -256,7 +248,6 @@ void AVLTree::insert(int _value, Node* _node){
 *   @param  Root of the tree that you want to find the min depth of
 *   @return The depth of the tree
 */
-
 int AVLTree::minDepth(Node* _root){
     if (_root != NULL){
        return 1 +  std::min(minDepth(_root->left), minDepth(_root->right));
@@ -277,7 +268,6 @@ int AVLTree::maxDepth(Node* _root){
     return 0;
 }
 
-
 /**
 *   rotates a right heavy sub tree once
 *   @param node to rotate on
@@ -285,7 +275,6 @@ int AVLTree::maxDepth(Node* _root){
 void AVLTree::rotateRight(Node* _node){
 
 }
-
 
 /**
 *   rotates a left heavy sub tree once
