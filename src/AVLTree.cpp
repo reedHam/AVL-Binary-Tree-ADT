@@ -92,7 +92,7 @@ void AVLTree::printTreeIn(Node* _root){
 int AVLTree::max(){
     if (root != NULL){
         if (root->right != NULL){
-            return max(root->right);
+            return max(root->right)->value;
         } else {
             return root->value;
         }
@@ -105,11 +105,11 @@ int AVLTree::max(){
 *   This method traverses the right branch of the tree by recursing
 *   @return the maximum value in the tree
 */
-int AVLTree::max(Node* _root){
+AVLTree::Node* AVLTree::max(Node* _root){
     if (_root->right != NULL){
         max(_root->right);
     } else {
-        return _root->value;
+        return _root;
     }
 }
 
@@ -120,7 +120,7 @@ int AVLTree::max(Node* _root){
 int AVLTree::min(){
     if (root != NULL){
         if (root->left != NULL){
-            return min(root->left);
+            return min(root->left)->value;
         } else {
             return root->value;
         }
@@ -134,11 +134,11 @@ int AVLTree::min(){
 *   This method traverses the left branch of the tree by recursing
 *   @return the minimum value in the tree
 */
-int AVLTree::min(Node* _root){
+AVLTree::Node* AVLTree::min(Node* _root){
     if (_root->left != NULL){
         min(_root->left);
     } else {
-        return _root->value;
+        return _root;
     }
 }
 
@@ -213,6 +213,65 @@ void AVLTree::deleteTree(Node* _leaf){
 }
 
 /**
+*   this method calls the private remove method
+*   @param _leaf the node to delete
+*/
+bool AVLTree::remove(int _value){
+    if (search(_value)){
+        root = remove(_value, root);
+        return true;
+    }
+    return false;
+}
+
+/**
+*   this method recursively searches through the tree and deletes the node when it is found
+*   then the tree is reconstructed and balanced
+*   @param _leaf the node to delete
+*   @return _leaf the tree without deleted node
+*/
+AVLTree::Node* AVLTree::remove(int _value, Node* _node){
+    if (_node == NULL){
+        return NULL;
+    } else if (_value < _node->value){
+        _node->left = remove(_value, _node->left);
+    } else if (_value > _node->value){
+        _node->left = remove(_value, _node->right);
+    } else { // if the value is found
+        Node* left = _node->left;
+        Node* right = _node->right;
+        delete _node;
+
+        if (right == NULL){
+            return left;
+        }
+
+        Node* minimum = min(right);
+
+        minimum->right = removeMin(right);
+
+        minimum->left = left;
+
+        return balance(minimum);
+    }
+}
+
+/**
+*   helper method for removing finds the lowest value in the sub tree
+*   then balances
+*   @param _leaf the node to delete
+*/
+AVLTree::Node* AVLTree::removeMin(Node* _node){
+    if (_node->left == NULL){
+        return _node->right;
+    }
+
+    _node->left = removeMin(_node->left);
+
+    return balance(_node);
+}
+
+/**
 *   This method allows the user to insert a value that will create a new node
 *   The tree is traversed recursively and the new node is inserted in the appropriate place
 *   @param _value int the value that will be inserted into the tree
@@ -220,6 +279,33 @@ void AVLTree::deleteTree(Node* _leaf){
 void AVLTree::insert(int _value){
     root = insert(_value, root);
 }
+
+/**
+*   This method passes a value to search for to the private search method
+*   @param the value to search for
+*/
+bool AVLTree::search(int _value){
+    return search(_value, root) != NULL;
+}
+
+/**
+*   This method searches for a node recursively
+*   @param the value to search for
+*   @param the node of the sub tree to search
+*/
+AVLTree::Node* AVLTree::search(int _value, Node* _root){
+    if (_root == NULL){
+        return NULL;
+    } else if (_value < _root->value){
+        search(_value, _root->left);
+    } else if (_value > _root->value){
+        search(_value, _root->right);
+    } else { // if the value is found
+        return _root;
+    }
+}
+
+
 
 /**
 *   This method traverses the tree and inserts the value as a new node in the
@@ -241,26 +327,29 @@ AVLTree::Node* AVLTree::insert(int _value, Node* _node){
         return _node;
     }
 
-    // Step 2: Update height
+    return balance(_node);
+}
+
+/**
+*   checks if the difference in the height of the sub-trees violates the balance property
+*   @param root of the tree to balance
+*   @return root of the balanced tree
+*/
+AVLTree::Node* AVLTree::balance(Node* _node){
     _node->height = maxDepth(_node);
 
-    // step 3: Get the balance of each node
-    int balance = getBalance(_node);
-
-    // Tree became unbalanced
-
-    if (balance > 1){
+    if (getBalance(_node) == 2){
         //Left Right
-        if (_value > _node->left->value){
+        if (getBalance(_node->right) > 0){
             _node->left = rotateLeft(_node->left);
         }
         //Left Left
         return rotateRight(_node);
     }
 
-    if (balance < -1){
+    if (getBalance(_node) == -2){
         //Right Left
-        if (_value < _node->right->value){
+        if (getBalance(_node->left) < 0){
             _node->right = rotateRight(_node->right);
         }
         //Right Right
@@ -269,6 +358,7 @@ AVLTree::Node* AVLTree::insert(int _value, Node* _node){
 
     return _node;
 }
+
 
 /**
 *   rotates a right heavy sub tree once

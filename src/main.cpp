@@ -38,5 +38,42 @@ int main(){
 
     cout << "Is the tree balanced? ";
     cout << testTree.isBalanced() << endl;
+
+    cout << "Is 4 in the tree? ";
+    cout << testTree.search(4) << endl;
+
+    cout << "In-order: ";
+    testTree.printTreeIn();
+    cout << endl;
+
+    cout << "Remove 4: ";
+    cout << testTree.remove(4) << endl;
+
+    cout << "In-order: ";
+    testTree.printTreeIn();
+    cout << endl;
+
+    cout << "Remove 5: ";
+    cout << testTree.remove(5) << endl;
+
+    cout << "In-order: ";
+    testTree.printTreeIn();
+    cout << endl;
+
+    cout << "Remove 6: ";
+    cout << testTree.remove(6) << endl;
+
+    cout << "Remove 3: ";
+    cout << testTree.remove(1) << endl;
+
+    cout << "Is 4 in the tree? ";
+    cout << testTree.search(4) << endl;
+
+    cout << "Is 3 in the tree? ";
+    cout << testTree.search(3) << endl;
+
+    cout << "Is the tree balanced? ";
+    cout << testTree.isBalanced() << endl;
+
     return 0;
 }

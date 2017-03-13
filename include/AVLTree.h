@@ -8,7 +8,7 @@ class AVLTree{
         AVLTree();
         ~AVLTree();
 
-        bool isBalanced();
+
         void printTreePre();
         void printTreePost();
         void printTreeIn();
@@ -20,7 +20,9 @@ class AVLTree{
 
         void deleteTree();
         void insert(int _value);
-
+        bool search(int _value);
+        bool remove(int _value);
+        bool isBalanced();
 
     private:
         /**
@@ -46,8 +48,8 @@ class AVLTree{
         void printTreePre(Node* _root);
         void printTreePost(Node* _root);
         void printTreeIn(Node* _root);
-        int max(Node* _root);
-        int min(Node* _root);
+        Node* max(Node* _root);
+        Node* min(Node* _root);
         int countNodes(Node* _root);
         int countLeafs(Node* _root);
 
@@ -55,7 +57,10 @@ class AVLTree{
 
         void deleteTree(Node* _leaf);
         Node* insert(int _value, Node* _node);
-
+        Node* search(int _value, Node* _root);
+        Node* remove(int _value, Node* _root);
+        Node* removeMin(Node* _root);
+        Node* balance(Node* _node);
         Node* rotateRight(Node* _node);
         Node* rotateLeft(Node* _node);
 
