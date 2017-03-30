@@ -12,6 +12,7 @@ class AVLTree{
         void printTreePre();
         void printTreePost();
         void printTreeIn();
+        void displayTree();
         int max();
         int min();
         int height();
@@ -48,6 +49,7 @@ class AVLTree{
         void printTreePre(Node* _root);
         void printTreePost(Node* _root);
         void printTreeIn(Node* _root);
+        void displayTree(Node* _root, int depth);
         Node* max(Node* _root);
         Node* min(Node* _root);
         int countNodes(Node* _root);

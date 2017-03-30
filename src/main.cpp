@@ -5,75 +5,12 @@ using namespace std;
 
 int main(){
     AVLTree testTree;
-    testTree.insert(10);
-    testTree.insert(9);
-    testTree.insert(7);
-    testTree.insert(6);
-    testTree.insert(5);
-    testTree.insert(4);
+    for (int i = 0; i < 10; i++){
+        testTree.insert(i);
+    }
 
-    cout << "Pre-order: ";
-    testTree.printTreePre();
-    cout << endl;
 
-    cout << "Post-order: ";
-    testTree.printTreePost();
-    cout << endl;
-
-    cout << "In-order: ";
-    testTree.printTreeIn();
-    cout << endl;
-
-    cout << "Max: ";
-    cout << testTree.max() << endl;
-
-    cout << "Min: ";
-    cout << testTree.min() << endl;
-
-    cout << "Number of nodes: ";
-    cout << testTree.numNodes() << endl;
-
-    cout << "Number of Leafs: ";
-    cout << testTree.numLeafs() << endl;
-
-    cout << "Is the tree balanced? ";
-    cout << testTree.isBalanced() << endl;
-
-    cout << "Is 4 in the tree? ";
-    cout << testTree.search(4) << endl;
-
-    cout << "In-order: ";
-    testTree.printTreeIn();
-    cout << endl;
-
-    cout << "Remove 4: ";
-    cout << testTree.remove(4) << endl;
-
-    cout << "In-order: ";
-    testTree.printTreeIn();
-    cout << endl;
-
-    cout << "Remove 5: ";
-    cout << testTree.remove(5) << endl;
-
-    cout << "In-order: ";
-    testTree.printTreeIn();
-    cout << endl;
-
-    cout << "Remove 6: ";
-    cout << testTree.remove(6) << endl;
-
-    cout << "Remove 3: ";
-    cout << testTree.remove(1) << endl;
-
-    cout << "Is 4 in the tree? ";
-    cout << testTree.search(4) << endl;
-
-    cout << "Is 3 in the tree? ";
-    cout << testTree.search(3) << endl;
-
-    cout << "Is the tree balanced? ";
-    cout << testTree.isBalanced() << endl;
+    testTree.displayTree();
 
     return 0;
 }

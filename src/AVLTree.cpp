@@ -66,13 +66,6 @@ void AVLTree::printTreeIn(){
 }
 
 /**
-*   @return The height of the tree
-*/
-int AVLTree::height(){
-    return maxDepth(root);
-};
-
-/**
 *   This method traverses the tree in in-order and prints the value
 */
 void AVLTree::printTreeIn(Node* _root){
@@ -83,6 +76,36 @@ void AVLTree::printTreeIn(Node* _root){
         printTreeIn(_root->right);
     }
 }
+
+/**
+*   This method calls a method that displays the tree in the terminal
+*/
+void AVLTree::displayTree(){
+    displayTree(root, 1);
+}
+
+void AVLTree::displayTree(Node* _root, int depth){
+    if (_root != NULL){
+        displayTree(_root->right, depth + 1);
+        std::cout << std::endl;
+        if (_root == root){
+            std::cout<<"Root -> ";
+        }
+        for (int i = 0; i < depth && _root != root; i++){
+            std::cout<<"        ";
+        }
+        std::cout << _root->value;
+        displayTree(_root->left, depth + 1);
+    }
+}
+
+
+/**
+*   @return The height of the tree
+*/
+int AVLTree::height(){
+    return maxDepth(root);
+};
 
 
 /**
@@ -395,7 +418,7 @@ AVLTree::Node* AVLTree::rotateLeft(Node* _node){
     piviot->height = maxDepth(piviot);
     _node->height = maxDepth(_node);
 
-    return _node;
+    return piviot;
 }
 
 /**
