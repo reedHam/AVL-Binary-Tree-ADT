@@ -21,14 +21,14 @@ bool AVLTree::isBalanced(){
 }
 
 /**
-*   This method calls a method that traverses the tree in pre-order
+*   printTreePre calls  printTreePre(root) that traverses the tree in pre-order
 */
 void AVLTree::printTreePre(){
     return printTreePre(root);
 }
 
 /**
-*   This method traverses the tree in pre-order and prints the value
+*   printTreePre traverses the tree in pre-order and prints the value
 */
 void AVLTree::printTreePre(Node* _root){
     if (_root != NULL){
@@ -40,14 +40,14 @@ void AVLTree::printTreePre(Node* _root){
 }
 
 /**
-*   This method calls a method that traverses the tree in post-order
+*   printTreePost calls a printTreePost(root) that traverses the tree in post-order
 */
 void AVLTree::printTreePost(){
     return printTreePost(root);
 }
 
 /**
-*   This method traverses the tree in post-order and prints the value
+*   printTreePost traverses the tree in post-order and prints the value
 */
 void AVLTree::printTreePost(Node* _root){
     if (_root != NULL){
@@ -59,14 +59,14 @@ void AVLTree::printTreePost(Node* _root){
 }
 
 /**
-*   This method calls a method that traverses the tree in in-order
+*   printTreeIn calls a printTreeIn(root) that traverses the tree in in-order
 */
 void AVLTree::printTreeIn(){
     return printTreeIn(root);
 }
 
 /**
-*   This method traverses the tree in in-order and prints the value
+*   printTreeIn traverses the tree in in-order and prints the value
 */
 void AVLTree::printTreeIn(Node* _root){
     if (_root != NULL){
